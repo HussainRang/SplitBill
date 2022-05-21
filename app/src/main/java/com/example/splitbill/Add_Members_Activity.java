@@ -21,7 +21,13 @@ public class Add_Members_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_members);
+
+
     }
+
+    DataBaseHandler dbh = (DataBaseHandler) getIntent().getSerializableExtra("Database_Handler");
+
+    EditText grpName=(EditText) findViewById(R.id.grp_Name);
 
     private ArrayList arrlst = new ArrayList();
     private ArrayList<EditText> et_lst = new ArrayList();
@@ -146,13 +152,15 @@ public class Add_Members_Activity extends AppCompatActivity {
     }
 
     public void DONE_CLICKED(View view) {
-        if(et_lst.size()!=0 && check())
+        if(et_lst.size()!=0 && check() && !grpName.getText().toString().trim().equals(""))
         {
             //Enter friends name in arrlst and return
             for(int i=0;i< et_lst.size();i++)
                 arrlst.add(et_lst.get(i).getText().toString().trim());
 
             //Enter a row in main_table and store the id
+            dbh.execSQL(INSERT INTO SplitBillMain(tripName,num_mem) values(grpName.getText().toString().trim(),arrlst.size()));
+
             //run SQL queries to create friends table and activities table
         }
 

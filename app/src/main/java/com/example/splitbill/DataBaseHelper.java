@@ -27,7 +27,7 @@ class DataBaseHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_MAIN_TABLE = "CREATE TABLE SplitBillMain (id INTEGER PRIMARY KEY AUTOINCREMENT," +
+        String CREATE_MAIN_TABLE = "CREATE TABLE IF NOT EXISTS SplitBillMain (id INTEGER PRIMARY KEY AUTOINCREMENT," +
                                     "tripName TEXT," +
                                     "num_mem INT)";
         db.execSQL(CREATE_MAIN_TABLE);
@@ -41,5 +41,9 @@ class DataBaseHandler extends SQLiteOpenHelper {
 
         // Create tables again
         onCreate(db);
+    }
+
+    public void SQLQUERY(String s,SQLiteDatabase db){
+        db.execSQL(s);
     }
 }

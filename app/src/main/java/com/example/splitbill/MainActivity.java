@@ -2,7 +2,9 @@ package com.example.splitbill;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -14,21 +16,20 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    DataBaseHandler dbh = new DataBaseHandler(this);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
     }
+    Intent intent=new Intent()
+    DataBaseHandler dbh = new DataBaseHandler(this);
 
     public void Main_Add_Button_pressed(View view)
     {
         //change intent to add activity name and add members page
-
+        Intent  addMember=new Intent(this,Add_Members_Activity.class);
+        addMember.putExtra("Database_Handler", (Parcelable) dbh);
+        startActivity(addMember);
         //Send an arraylist having { id, group_name,number_of_members } or (int id,String group_name,int number_of_members)
         add_frame_main_interface();
     }
