@@ -25,7 +25,7 @@ public class Add_Members_Activity extends AppCompatActivity {
 
     private ArrayList arrlst = new ArrayList();
     private ArrayList<EditText> et_lst = new ArrayList();
-
+    private int id = 0;
 
     public void ADD_MEMBER_button_click(View view)
     {
@@ -65,12 +65,17 @@ public class Add_Members_Activity extends AppCompatActivity {
         et.setHint("Member Name");
         //Adding EditText to et_lst
         et_lst.add(et);
+        et.setId(id);
+        id++;
 
         //Creating Remove Button
         Button btn = new Button(this);
         //setting button text
         btn.setText("X");
-        //Setting backgrond colour as red for button
+        //Setting remove button id as 1+id of corresponding Edittext in the same frame
+        btn.setId(id);
+        id++;
+        //Setting background colour as red for button
         btn.setBackgroundColor(getResources().getColor(R.color.red));
         //Setting orientation to right
         btn.setGravity(Gravity.RIGHT);
@@ -84,8 +89,17 @@ public class Add_Members_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Function to remove view
+
+                //Taking the id of the remove button
+                int id = v.getId();
+                id = id -1 ;
+                EditText et = findViewById(id);
+                et_lst.remove(et);
+
                 LinearLayout ll_main = findViewById(R.id.Linear_layout_add_edit_text);
                 ll_main.removeView((View) ((View) v.getParent()).getParent());
+                Toast.makeText(Add_Members_Activity.this, "Et_lst size: "+et_lst.size(), Toast.LENGTH_SHORT).show();
+
 
             }
         });
@@ -134,6 +148,10 @@ public class Add_Members_Activity extends AppCompatActivity {
     public void DONE_CLICKED(View view) {
         if(et_lst.size()!=0 && check())
         {
+            //Enter friends name in arrlst and return
+            for(int i=0;i< et_lst.size();i++)
+                arrlst.add(et_lst.get(i).getText().toString().trim());
+
             //Enter a row in main_table and store the id
             //run SQL queries to create friends table and activities table
         }
