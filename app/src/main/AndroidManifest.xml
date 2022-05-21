@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SplitBill">
         <activity
+            android:name=".Add_Members_Activity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

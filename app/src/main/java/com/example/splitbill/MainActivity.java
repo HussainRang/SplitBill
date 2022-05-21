@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     DataBaseHandler dbh = new DataBaseHandler(this);
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         //GIVING TAG TO FRAME
         //fr.setTag("FRAME"+id);
         //SETTING ONCLICK FUNCTION
-        fr.setOnClickListener(frame_clicked(fr));
+        //fr.setOnClickListener(frame_clicked(fr,arrlst));
 
         // creating horizontal linear layout dynamically
         LinearLayout lr_hor = new LinearLayout(this);
@@ -113,10 +115,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
     
-    public View.OnClickListener frame_clicked(View view)
+    public View.OnClickListener frame_clicked(View view, ArrayList arrlst)
     {
-
+        changing_intent(arrlst);
         return null;
     }
+
+    public void changing_intent(ArrayList arrlst)
+    {
+        //change intent to add activity page
+    }
+
 
 }
