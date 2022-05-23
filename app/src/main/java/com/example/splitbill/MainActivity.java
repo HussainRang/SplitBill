@@ -1,8 +1,10 @@
 package com.example.splitbill;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.Gravity;
@@ -16,22 +18,58 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String trip_name;
+    private int num_mem;
+    private int fr_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    Intent intent=new Intent()
-    DataBaseHandler dbh = new DataBaseHandler(this);
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==1)
+        {
+            if(resultCode==RESULT_OK)
+            {
+                trip_name = data.getStringExtra("group_name");
+                num_mem = data.getIntExtra("Members",0);
+                fr_id = data.getIntExtra("ID",0);
+                Toast.makeText(this, "GOT"+trip_name+"  "+num_mem+"  "+fr_id, Toast.LENGTH_SHORT).show();
+                add_frame_main_interface();
+            }
+            if(resultCode==RESULT_CANCELED)
+            {
+                Toast.makeText(this,"Something happened",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public DataBaseHandler dbh = new DataBaseHandler(this);
 
     public void Main_Add_Button_pressed(View view)
     {
+
         //change intent to add activity name and add members page
-        Intent  addMember=new Intent(this,Add_Members_Activity.class);
-        addMember.putExtra("Database_Handler", (Parcelable) dbh);
-        startActivity(addMember);
+        Toast.makeText(this, "Add Button Pressed", Toast.LENGTH_SHORT).show();
+
+        Intent addMember = new Intent(this,Add_Members_Activity.class);
+        addMember.putExtra("ABC","abc");
+        startActivityForResult(addMember,1);
+
+
+        Toast.makeText(this, "Going to new Activity", Toast.LENGTH_SHORT).show();
+
+        //startActivity(addMember);
+
         //Send an arraylist having { id, group_name,number_of_members } or (int id,String group_name,int number_of_members)
-        add_frame_main_interface();
+
+
+
     }
 
     public void add_frame_main_interface() {
@@ -42,15 +80,15 @@ public class MainActivity extends AppCompatActivity {
         FrameLayout fr = new FrameLayout(this);
         //layout params for frames
         FrameLayout.LayoutParams params_fr = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.FILL_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT,
                 Gravity.CENTER);
         fr.setLayoutParams(params_fr);
         //frames can be clicked
         fr.setClickable(true);
         //GIVING TAG TO FRAME
-        //fr.setTag("FRAME"+id);
+        fr.setId(fr_id);
         //SETTING ONCLICK FUNCTION
-        //fr.setOnClickListener(frame_clicked(fr,arrlst));
+        fr.setOnClickListener(frame_clicked(fr));
 
         // creating horizontal linear layout dynamically
         LinearLayout lr_hor = new LinearLayout(this);
@@ -77,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
         //adding text view to add GROUP NAME
         TextView tv1 = new TextView(this);
-        tv1.setText("Group Name");
+        tv1.setText(trip_name);
         LinearLayout.LayoutParams params_tv1 = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -85,12 +123,13 @@ public class MainActivity extends AppCompatActivity {
         tv1.setLayoutParams(params_tv1);
         //Text Size
         tv1.setTextSize(12);
+        tv1.setTextColor(Color.BLACK);
         //textview Orientation
         tv1.setGravity(Gravity.LEFT);
 
         //TextView to add number of members in group
         TextView tv2 = new TextView(this);
-        tv2.setText("Members");
+        tv2.setText(""+num_mem+" Members");
         LinearLayout.LayoutParams params_tv2 = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -105,26 +144,32 @@ public class MainActivity extends AppCompatActivity {
 
         //Adding views to vertical linear layout
         lr_ver.addView(tv1);
+
         lr_ver.addView(tv2);
         //Adding views to horizontal linear layout
         lr_hor.addView(lr_ver);
         //adding views to frame
         fr.addView(lr_hor);
         //adding views to scrollview
-        Toast.makeText(getApplicationContext(),"Frame Added",Toast.LENGTH_SHORT).show();
+
         ll.addView(fr);
+        Toast.makeText(getApplicationContext(),"Frame Added",Toast.LENGTH_SHORT).show();
 
     }
     
-    public View.OnClickListener frame_clicked(View view, ArrayList arrlst)
+    public View.OnClickListener frame_clicked(View view)
     {
-        changing_intent(arrlst);
+        int ID = view.getId();
+
+        changing_intent(ID);
         return null;
     }
 
-    public void changing_intent(ArrayList arrlst)
+    public void changing_intent(int id)
     {
-        //change intent to add activity page
+        Intent addActivity = new Intent(this,Activities_page.class);
+        addActivity.putExtra("ID",id);
+        startActivity(addActivity);
     }
 
 

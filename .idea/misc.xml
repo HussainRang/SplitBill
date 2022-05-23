@@ -5,8 +5,16 @@
       <map>
         <entry key="..\:/Users/Keval/AndroidStudioProjects/SplitBill/app/src/main/res/layout/activity_add_members.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/Keval/AndroidStudioProjects/SplitBill/app/src/main/res/layout/activity_main.xml" value="0.23645833333333333" />
+        <entry key="..\:/computer/project/SplitBill/app/src/main/res/drawable/ic_activities.xml" value="0.107" />
+        <entry key="..\:/computer/project/SplitBill/app/src/main/res/drawable/ic_status.xml" value="0.2425" />
+        <entry key="..\:/computer/project/SplitBill/app/src/main/res/drawable/selector.xml" value="0.2425" />
+        <entry key="..\:/computer/project/SplitBill/app/src/main/res/layout/activity_activities_page.xml" value="0.20833333333333334" />
+        <entry key="..\:/computer/project/SplitBill/app/src/main/res/layout/activity_add.xml" value="0.1" />
         <entry key="..\:/computer/project/SplitBill/app/src/main/res/layout/activity_add_members.xml" value="0.20833333333333334" />
+        <entry key="..\:/computer/project/SplitBill/app/src/main/res/layout/activity_bills.xml" value="0.20833333333333334" />
         <entry key="..\:/computer/project/SplitBill/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/computer/project/SplitBill/app/src/main/res/layout/activity_status.xml" value="0.20833333333333334" />
+        <entry key="..\:/computer/project/SplitBill/app/src/main/res/menu/menu.xml" value="0.23645833333333333" />
       </map>
     </option>
   </component>
